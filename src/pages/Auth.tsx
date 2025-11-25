@@ -9,6 +9,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { useToast } from "@/hooks/use-toast";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
@@ -18,6 +19,7 @@ const signUpSchema = z.object({
   password: z.string().min(6, "Password must be at least 6 characters"),
   fullName: z.string().min(2, "Full name is required"),
   companyName: z.string().optional(),
+  role: z.enum(["customer", "supplier"]),
 });
 
 const signInSchema = z.object({
@@ -35,6 +37,9 @@ const Auth = () => {
 
   const signUpForm = useForm<SignUpForm>({
     resolver: zodResolver(signUpSchema),
+    defaultValues: {
+      role: "customer",
+    },
   });
 
   const signInForm = useForm<SignInForm>({
@@ -51,6 +56,7 @@ const Auth = () => {
           data: {
             full_name: data.fullName,
             company_name: data.companyName,
+            role: data.role,
           },
           emailRedirectTo: `${window.location.origin}/`,
         },
@@ -159,6 +165,27 @@ const Auth = () => {
               </CardHeader>
               <form onSubmit={signUpForm.handleSubmit(onSignUp)}>
                 <CardContent className="space-y-4">
+                  <div className="space-y-3">
+                    <Label>Account Type</Label>
+                    <RadioGroup
+                      defaultValue="customer"
+                      onValueChange={(value) => signUpForm.setValue("role", value as "customer" | "supplier")}
+                    >
+                      <div className="flex items-center space-x-2">
+                        <RadioGroupItem value="customer" id="customer" />
+                        <Label htmlFor="customer" className="font-normal cursor-pointer">
+                          Customer - I want to purchase products
+                        </Label>
+                      </div>
+                      <div className="flex items-center space-x-2">
+                        <RadioGroupItem value="supplier" id="supplier" />
+                        <Label htmlFor="supplier" className="font-normal cursor-pointer">
+                          Supplier - I want to sell products
+                        </Label>
+                      </div>
+                    </RadioGroup>
+                  </div>
+
                   <div className="space-y-2">
                     <Label htmlFor="signup-fullname">Full Name</Label>
                     <Input
