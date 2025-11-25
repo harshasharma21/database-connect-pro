@@ -51,7 +51,16 @@ const Shop = () => {
     if (checked) {
       setSelectedCategories(prev => [...new Set([...prev, ...descendantSlugs])]);
     } else {
-      setSelectedCategories(prev => prev.filter(slug => !descendantSlugs.includes(slug)));
+      // When unchecking a subcategory, remove it and its descendants
+      // Also remove parent category if this was a subcategory
+      const parent = categories.find(cat => cat.id === category.parentId);
+      const slugsToRemove = [...descendantSlugs];
+      
+      if (parent) {
+        slugsToRemove.push(parent.slug);
+      }
+      
+      setSelectedCategories(prev => prev.filter(slug => !slugsToRemove.includes(slug)));
     }
   };
 

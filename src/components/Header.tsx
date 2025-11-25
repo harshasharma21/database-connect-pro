@@ -68,15 +68,26 @@ export const Header = () => {
             </div>
             <div className="flex items-center gap-4">
               {user ? (
-                <Button 
-                  variant="ghost" 
-                  size="sm" 
-                  onClick={handleSignOut}
-                  className="text-primary-foreground hover:bg-primary-foreground/10"
-                >
-                  <LogOut className="h-4 w-4 mr-2" />
-                  Sign Out
-                </Button>
+                <div className="flex items-center gap-2">
+                  <Button 
+                    variant="ghost" 
+                    size="sm" 
+                    onClick={() => navigate('/profile')}
+                    className="text-primary-foreground hover:bg-primary-foreground/10"
+                  >
+                    <User className="h-4 w-4 mr-2" />
+                    My Profile
+                  </Button>
+                  <Button 
+                    variant="ghost" 
+                    size="sm" 
+                    onClick={handleSignOut}
+                    className="text-primary-foreground hover:bg-primary-foreground/10"
+                  >
+                    <LogOut className="h-4 w-4 mr-2" />
+                    Sign Out
+                  </Button>
+                </div>
               ) : (
                 <Button 
                   variant="ghost" 
@@ -155,16 +166,7 @@ export const Header = () => {
             </li>
             <li>
               <Button variant="ghost" className="rounded-none h-12" asChild>
-                <a href="https://www.cnfoods.co.uk/new-customer-signup" target="_blank" rel="noopener noreferrer">
-                  New Customer Signup
-                </a>
-              </Button>
-            </li>
-            <li>
-              <Button variant="ghost" className="rounded-none h-12" asChild>
-                <a href="https://www.cnfoods.co.uk/new-supplier-signup" target="_blank" rel="noopener noreferrer">
-                  New Supplier Signup
-                </a>
+                <Link to="/auth">Sign Up / Sign In</Link>
               </Button>
             </li>
             <li>
