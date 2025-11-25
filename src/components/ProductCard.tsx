@@ -6,16 +6,38 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Product } from "@/types/product";
 import { toast } from "sonner";
+import { useCart } from "@/context/CartContext";
+import passataImg from "@/assets/product-passata.jpg";
+import pestoImg from "@/assets/product-pesto.jpg";
+import pastaImg from "@/assets/product-pasta.jpg";
+import orangeJuiceImg from "@/assets/product-orange-juice.jpg";
+import waterImg from "@/assets/product-water.jpg";
+import colaImg from "@/assets/product-cola.jpg";
+import chipsImg from "@/assets/product-chips.jpg";
 
 interface ProductCardProps {
   product: Product;
 }
 
+const productImages: Record<string, string> = {
+  "product-passata": passataImg,
+  "product-pesto": pestoImg,
+  "product-pasta": pastaImg,
+  "product-orange-juice": orangeJuiceImg,
+  "product-water": waterImg,
+  "product-cola": colaImg,
+  "product-chips": chipsImg,
+};
+
 export const ProductCard = ({ product }: ProductCardProps) => {
+  const { addItem } = useCart();
   const [quantity, setQuantity] = useState(1);
   const [isLiked, setIsLiked] = useState(false);
 
+  const productImage = product.images[0] ? productImages[product.images[0]] || "/placeholder.svg" : "/placeholder.svg";
+
   const handleAddToCart = () => {
+    addItem(product, quantity);
     toast.success(`Added ${quantity}x ${product.name} to cart`);
   };
 
@@ -28,7 +50,7 @@ export const ProductCard = ({ product }: ProductCardProps) => {
     <Card className="group overflow-hidden hover:shadow-elegant-hover transition-smooth">
       <div className="relative aspect-square overflow-hidden bg-neutral-100">
         <img
-          src={product.images[0]}
+          src={productImage}
           alt={product.name}
           className="object-cover w-full h-full group-hover:scale-105 transition-smooth"
         />

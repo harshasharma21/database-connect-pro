@@ -166,7 +166,7 @@ const Auth = () => {
               <form onSubmit={signUpForm.handleSubmit(onSignUp)}>
                 <CardContent className="space-y-4">
                   <div className="space-y-3">
-                    <Label>Account Type</Label>
+                    <Label>I am registering as</Label>
                     <RadioGroup
                       defaultValue="customer"
                       onValueChange={(value) => signUpForm.setValue("role", value as "customer" | "supplier")}
@@ -174,13 +174,13 @@ const Auth = () => {
                       <div className="flex items-center space-x-2">
                         <RadioGroupItem value="customer" id="customer" />
                         <Label htmlFor="customer" className="font-normal cursor-pointer">
-                          Customer - I want to purchase products
+                          <span className="font-semibold">Customer</span> - I want to purchase wholesale products for my business
                         </Label>
                       </div>
                       <div className="flex items-center space-x-2">
                         <RadioGroupItem value="supplier" id="supplier" />
                         <Label htmlFor="supplier" className="font-normal cursor-pointer">
-                          Supplier - I want to sell products
+                          <span className="font-semibold">Supplier</span> - I want to sell products on this platform
                         </Label>
                       </div>
                     </RadioGroup>

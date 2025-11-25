@@ -5,6 +5,12 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { categories } from "@/data/mockData";
+import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
+import Autoplay from "embla-carousel-autoplay";
+import foodCupboardImg from "@/assets/category-food-cupboard.jpg";
+import beveragesImg from "@/assets/category-beverages.jpg";
+import frozenFoodsImg from "@/assets/category-frozen-foods.jpg";
+import snacksImg from "@/assets/category-snacks.jpg";
 
 const Index = () => {
   return (
@@ -12,29 +18,52 @@ const Index = () => {
       <Header />
       
       <main className="flex-1">
-        {/* Hero Section */}
-        <section className="relative bg-gradient-to-r from-primary to-trust-blue text-primary-foreground">
-          <div className="container mx-auto px-4 py-12 md:py-20 lg:py-28">
-            <div className="max-w-3xl">
-              <h1 className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold mb-4 md:mb-6">
-                Your Trusted B2B Food Supplier
-              </h1>
-              <p className="text-base md:text-xl lg:text-2xl mb-6 md:mb-8 text-primary-foreground/90">
-                Quality wholesale food products delivered direct to your business. Competitive pricing, reliable service, extensive range.
-              </p>
-              <div className="flex flex-col sm:flex-row flex-wrap gap-3 md:gap-4">
-                <Button size="lg" variant="secondary" className="w-full sm:w-auto" asChild>
-                  <Link to="/shop">
-                    Browse Products
-                    <ArrowRight className="ml-2 h-4 w-4 md:h-5 md:w-5" />
-                  </Link>
-                </Button>
-                <Button size="lg" variant="outline" className="w-full sm:w-auto bg-transparent border-primary-foreground text-primary-foreground hover:bg-primary-foreground hover:text-primary" asChild>
-                  <Link to="/fast-order">Fast Order</Link>
-                </Button>
-              </div>
-            </div>
-          </div>
+        {/* Hero Carousel */}
+        <section className="relative">
+          <Carousel
+            opts={{ align: "start", loop: true }}
+            plugins={[Autoplay({ delay: 5000 })]}
+            className="w-full"
+          >
+            <CarouselContent>
+              {[
+                { img: foodCupboardImg, category: categories.find(c => c.slug === "food-cupboard")! },
+                { img: beveragesImg, category: categories.find(c => c.slug === "beverages")! },
+                { img: frozenFoodsImg, category: categories.find(c => c.slug === "frozen-foods")! },
+                { img: snacksImg, category: categories.find(c => c.slug === "snacks")! }
+              ].map((item, index) => (
+                <CarouselItem key={index}>
+                  <div className="relative h-[400px] md:h-[500px] lg:h-[600px]">
+                    <img 
+                      src={item.img} 
+                      alt={item.category.name}
+                      className="w-full h-full object-cover"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-r from-background/95 via-background/60 to-transparent">
+                      <div className="container mx-auto px-4 h-full flex items-center">
+                        <div className="max-w-2xl">
+                          <h2 className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold mb-4 md:mb-6">
+                            {item.category.name}
+                          </h2>
+                          <p className="text-base md:text-xl lg:text-2xl mb-6 md:mb-8 text-muted-foreground">
+                            Explore our wide range of {item.category.name.toLowerCase()} products. Quality assured, competitive prices.
+                          </p>
+                          <Button size="lg" asChild>
+                            <Link to={`/shop/category/${item.category.slug}-${item.category.id}`}>
+                              Browse {item.category.name}
+                              <ArrowRight className="ml-2 h-5 w-5" />
+                            </Link>
+                          </Button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+            <CarouselPrevious className="left-4" />
+            <CarouselNext className="right-4" />
+          </Carousel>
         </section>
 
         {/* Trust Indicators */}
@@ -84,26 +113,40 @@ const Index = () => {
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-4 gap-4 md:gap-6">
-              {categories.filter(cat => !cat.parentId).map((category) => (
-                <Link
-                  key={category.id}
-                  to={`/shop/category/${category.slug}-${category.id}`}
-                >
-                  <Card className="group overflow-hidden hover:shadow-elegant-hover transition-smooth cursor-pointer h-full">
-                    <div className="aspect-[16/10] bg-gradient-to-br from-primary/5 to-accent/5 relative overflow-hidden">
-                      <div className="absolute inset-0 bg-gradient-to-t from-background/80 to-transparent" />
-                      <div className="absolute bottom-3 md:bottom-4 left-3 md:left-4 right-3 md:right-4">
-                        <h3 className="text-xl md:text-2xl font-bold mb-1 group-hover:text-primary transition-smooth">
-                          {category.name}
-                        </h3>
-                        <p className="text-xs md:text-sm text-muted-foreground">
-                          {category.productCount} products
-                        </p>
+              {categories.filter(cat => !cat.parentId).map((category) => {
+                const categoryImages: Record<string, string> = {
+                  "food-cupboard": foodCupboardImg,
+                  "beverages": beveragesImg,
+                  "frozen-foods": frozenFoodsImg,
+                  "snacks": snacksImg
+                };
+                
+                return (
+                  <Link
+                    key={category.id}
+                    to={`/shop/category/${category.slug}-${category.id}`}
+                  >
+                    <Card className="group overflow-hidden hover:shadow-elegant-hover transition-smooth cursor-pointer h-full">
+                      <div className="aspect-[16/10] relative overflow-hidden">
+                        <img 
+                          src={categoryImages[category.slug]} 
+                          alt={category.name}
+                          className="w-full h-full object-cover group-hover:scale-105 transition-smooth"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-background/95 via-background/40 to-transparent" />
+                        <div className="absolute bottom-3 md:bottom-4 left-3 md:left-4 right-3 md:right-4">
+                          <h3 className="text-xl md:text-2xl font-bold mb-1 group-hover:text-primary transition-smooth">
+                            {category.name}
+                          </h3>
+                          <p className="text-xs md:text-sm text-muted-foreground">
+                            {category.productCount} products
+                          </p>
+                        </div>
                       </div>
-                    </div>
-                  </Card>
-                </Link>
-              ))}
+                    </Card>
+                  </Link>
+                );
+              })}
             </div>
           </div>
         </section>

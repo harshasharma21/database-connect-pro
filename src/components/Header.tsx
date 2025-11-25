@@ -13,11 +13,13 @@ import { useState, useEffect } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { User as SupabaseUser } from "@supabase/supabase-js";
 import { useToast } from "@/hooks/use-toast";
+import { useCart } from "@/context/CartContext";
 
 export const Header = () => {
   const [user, setUser] = useState<SupabaseUser | null>(null);
   const navigate = useNavigate();
   const { toast } = useToast();
+  const { totalItems } = useCart();
 
   useEffect(() => {
     supabase.auth.getSession().then(({ data: { session } }) => {
@@ -135,9 +137,11 @@ export const Header = () => {
             <Button variant="ghost" size="icon" className="relative h-9 w-9 md:h-10 md:w-10" asChild>
               <Link to="/cart">
                 <ShoppingCart className="h-4 w-4 md:h-5 md:w-5" />
-                <Badge className="absolute -top-1 -right-1 h-4 w-4 md:h-5 md:w-5 flex items-center justify-center p-0 text-[10px] md:text-xs">
-                  3
-                </Badge>
+                {totalItems > 0 && (
+                  <Badge className="absolute -top-1 -right-1 h-4 w-4 md:h-5 md:w-5 flex items-center justify-center p-0 text-[10px] md:text-xs">
+                    {totalItems}
+                  </Badge>
+                )}
                 <span className="sr-only">Cart</span>
               </Link>
             </Button>

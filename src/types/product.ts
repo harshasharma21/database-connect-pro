@@ -20,7 +20,7 @@ export interface Category {
   slug: string;
   name: string;
   parentId?: string;
-  imageUrl?: string;
+  image?: string;
   productCount?: number;
 }
 

@@ -6,25 +6,29 @@ export const categories: Category[] = [
     id: "15", 
     slug: "food-cupboard", 
     name: "Food Cupboard",
-    productCount: 145 
+    productCount: 145,
+    image: "category-food-cupboard"
   },
   { 
     id: "16", 
     slug: "beverages", 
     name: "Beverages",
-    productCount: 67 
+    productCount: 67,
+    image: "category-beverages"
   },
   { 
     id: "17", 
     slug: "frozen-foods", 
     name: "Frozen Foods",
-    productCount: 89 
+    productCount: 89,
+    image: "category-frozen-foods"
   },
   { 
     id: "19", 
     slug: "snacks", 
     name: "Snacks",
-    productCount: 54 
+    productCount: 54,
+    image: "category-snacks"
   },
 
   // Level 2: Subcategories of Food Cupboard
@@ -178,7 +182,7 @@ export const mockProducts: Product[] = [
     description: "Premium Italian organic tomato passata made from sun-ripened tomatoes. Perfect for pasta sauces, pizza bases, and Mediterranean dishes.",
     shortDescription: "Premium Italian organic passata",
     price: 2.45,
-    images: ["/placeholder.svg"],
+    images: ["product-passata"],
     category: "food-cupboard",
     subcategory: "pasta-passata-pesto",
     brand: "Italian Harvest",
@@ -194,7 +198,7 @@ export const mockProducts: Product[] = [
     description: "Traditional Genovese pesto made with fresh basil, pine nuts, parmesan, and extra virgin olive oil.",
     shortDescription: "Traditional Genovese pesto",
     price: 4.95,
-    images: ["/placeholder.svg"],
+    images: ["product-pesto"],
     category: "food-cupboard",
     subcategory: "pasta-passata-pesto",
     brand: "Italian Harvest",
@@ -210,7 +214,7 @@ export const mockProducts: Product[] = [
     description: "Classic Italian durum wheat penne pasta with ridged texture perfect for holding sauces.",
     shortDescription: "Classic durum wheat penne",
     price: 1.85,
-    images: ["/placeholder.svg"],
+    images: ["product-pasta"],
     category: "food-cupboard",
     subcategory: "pasta-passata-pesto",
     brand: "Pasta Prima",
@@ -274,7 +278,7 @@ export const mockProducts: Product[] = [
     description: "Freshly squeezed orange juice with no added sugar or preservatives.",
     shortDescription: "Fresh orange juice",
     price: 3.45,
-    images: ["/placeholder.svg"],
+    images: ["product-orange-juice"],
     category: "beverages",
     subcategory: "juices",
     brand: "Fresh Grove",
@@ -290,7 +294,7 @@ export const mockProducts: Product[] = [
     description: "Natural mineral water from Alpine springs with a refreshing sparkle.",
     shortDescription: "Alpine mineral water",
     price: 1.25,
-    images: ["/placeholder.svg"],
+    images: ["product-water"],
     category: "beverages",
     subcategory: "soft-drinks",
     brand: "Alpine Springs",
@@ -306,7 +310,7 @@ export const mockProducts: Product[] = [
     description: "Refreshing cola soft drink with the perfect balance of sweetness.",
     shortDescription: "Classic cola drink",
     price: 1.45,
-    images: ["/placeholder.svg"],
+    images: ["product-cola"],
     category: "beverages",
     subcategory: "cola-drinks",
     brand: "FizzPop",
@@ -322,7 +326,7 @@ export const mockProducts: Product[] = [
     description: "Crispy potato chips with a hint of sea salt. Perfect snack for any occasion.",
     shortDescription: "Sea salt chips",
     price: 2.25,
-    images: ["/placeholder.svg"],
+    images: ["product-chips"],
     category: "snacks",
     subcategory: "potato-chips",
     brand: "Crispy Bites",
