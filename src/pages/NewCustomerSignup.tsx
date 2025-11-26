@@ -15,6 +15,7 @@ const NewCustomerSignup = () => {
     businessName: "",
     contactName: "",
     email: "",
+    password: "",
     phone: "",
     businessType: "",
     address: "",
@@ -128,6 +129,16 @@ const NewCustomerSignup = () => {
                     onChange={(e) => setFormData({ ...formData, address: e.target.value })}
                   />
                 </div>
+
+                {/* <div className="space-y-2">
+                  <Label htmlFor="password">Password *</Label>
+                  <Textarea
+                    id="address"
+                    required
+                    value={formData.password}
+                    onChange={(e) => setFormData({ ...formData, password: e.target.value })}
+                  />
+                </div> */}
 
                 <div className="grid md:grid-cols-2 gap-4">
                   <div className="space-y-2">
