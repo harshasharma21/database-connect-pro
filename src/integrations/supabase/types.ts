@@ -112,6 +112,33 @@ export type Database = {
         }
         Relationships: []
       }
+      profiles: {
+        Row: {
+          company_name: string | null
+          created_at: string | null
+          full_name: string | null
+          id: string
+          role: string | null
+          updated_at: string | null
+        }
+        Insert: {
+          company_name?: string | null
+          created_at?: string | null
+          full_name?: string | null
+          id: string
+          role?: string | null
+          updated_at?: string | null
+        }
+        Update: {
+          company_name?: string | null
+          created_at?: string | null
+          full_name?: string | null
+          id?: string
+          role?: string | null
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
       tags: {
         Row: {
           created_at: string | null
