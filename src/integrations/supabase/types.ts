@@ -14,7 +14,122 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      categories: {
+        Row: {
+          created_at: string | null
+          id: string
+          image: string | null
+          name: string
+          parent_id: string | null
+          product_count: number | null
+          slug: string
+        }
+        Insert: {
+          created_at?: string | null
+          id: string
+          image?: string | null
+          name: string
+          parent_id?: string | null
+          product_count?: number | null
+          slug: string
+        }
+        Update: {
+          created_at?: string | null
+          id?: string
+          image?: string | null
+          name?: string
+          parent_id?: string | null
+          product_count?: number | null
+          slug?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "categories_parent_id_fkey"
+            columns: ["parent_id"]
+            isOneToOne: false
+            referencedRelation: "categories"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      products: {
+        Row: {
+          brand: string | null
+          category: string
+          created_at: string | null
+          description: string | null
+          id: string
+          images: string[] | null
+          in_stock: boolean | null
+          name: string
+          pack_size: string | null
+          price: number
+          short_description: string | null
+          sku: string
+          stock: number | null
+          subcategory: string | null
+          tags: string[] | null
+          unit: string | null
+          updated_at: string | null
+        }
+        Insert: {
+          brand?: string | null
+          category: string
+          created_at?: string | null
+          description?: string | null
+          id: string
+          images?: string[] | null
+          in_stock?: boolean | null
+          name: string
+          pack_size?: string | null
+          price: number
+          short_description?: string | null
+          sku: string
+          stock?: number | null
+          subcategory?: string | null
+          tags?: string[] | null
+          unit?: string | null
+          updated_at?: string | null
+        }
+        Update: {
+          brand?: string | null
+          category?: string
+          created_at?: string | null
+          description?: string | null
+          id?: string
+          images?: string[] | null
+          in_stock?: boolean | null
+          name?: string
+          pack_size?: string | null
+          price?: number
+          short_description?: string | null
+          sku?: string
+          stock?: number | null
+          subcategory?: string | null
+          tags?: string[] | null
+          unit?: string | null
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
+      tags: {
+        Row: {
+          created_at: string | null
+          id: string
+          name: string
+        }
+        Insert: {
+          created_at?: string | null
+          id: string
+          name: string
+        }
+        Update: {
+          created_at?: string | null
+          id?: string
+          name?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
